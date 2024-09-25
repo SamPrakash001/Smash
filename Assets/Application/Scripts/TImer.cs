@@ -57,7 +57,7 @@ public class TImer : MonoBehaviour
     
     
     void DisplayTime(float timeToDisplay)
-    {
+    {   
         timeToDisplay += 1;
 
         float minutes = Mathf.FloorToInt(timeToDisplay / 60); 

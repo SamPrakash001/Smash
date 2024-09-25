@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 209898610}
   - component: {fileID: 209898609}
   m_Layer: 5
-  m_Name: Quick Match
+  m_Name: Starts Match
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
