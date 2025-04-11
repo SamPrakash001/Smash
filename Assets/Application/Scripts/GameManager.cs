@@ -4,12 +4,13 @@ using UnityEngine;
 
 public  class GameManager : MonoBehaviour
 {
-    public bool _game_start ,_playerpos,_enemypos;
+    public bool _game_start ,_playerpos, _enemypos;
 
+    public static GameManager GMinstance;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GMinstance = this;
     }
 
     // Update is called once per frame
@@ -35,6 +36,6 @@ public  class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        
+        Debug.Log(" it's end dude");
     }
 }

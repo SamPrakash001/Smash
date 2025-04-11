@@ -8,69 +8,48 @@ using Random = UnityEngine.Random;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform _player;
-    [SerializeField] List<Transform> waypoints;
-    [SerializeField] private int _max_waypoint;
-    private NavMeshAgent _nav_mesh;
-    
-    public GameObject _points;
-    public float xRange = 10.0f;
-    public float zRange = 10.0f;
-    
     private Transform _me;
+    private NavMeshAgent nav_mesh;
 
-   [SerializeField] private List<Vector3> _WayToGo;
-   [SerializeField] private int _count;
-   private GameManager _GM;
+
+    [SerializeField] private List<Vector3> _WayToGo;
+    [SerializeField] private int _count;
+    private GameManager _GM;
 
     void Start()
     {
-        _nav_mesh = GetComponent<NavMeshAgent>();
         _me = this.transform;
         _GM = FindObjectOfType<GameManager>();
+        nav_mesh = GetComponent<NavMeshAgent>();
 
-        StartTrack();
+
+        StartDraw();
     }
     
-    public void StartTrack()
+    public void StartDraw()
     {
-        foreach (Transform _points in waypoints)
-        {
-            Destroy(_points.gameObject);
-        }
-        
-        waypoints.Clear();
         _WayToGo.Clear();
-
-
-        for (int i = 0; i <= _max_waypoint; i++)
-        {
-            CreateWaypoints();        
-        }
-        Invoke("AddWaypoints",1f);
-    }
-    
-    void CreateWaypoints()
-    {
-        Vector3 randomPosition = new Vector3(
-            Random.Range(-xRange, xRange),
-            0,
-            Random.Range(-zRange, zRange)
-        );
-
-       GameObject _waypoint =  Instantiate(_points, randomPosition, Quaternion.identity);
-       waypoints.Add(_waypoint.transform);
+        Invoke("AddWaypoints", 1f);
     }
 
 
+    private int randomPoints;
     void AddWaypoints()
     {
-        for (int i = 0; i < 2; i++)
+        randomPoints = Random.Range(1,8);
+
+        for (int i = 0; i < randomPoints; i++)
         {
-            _WayToGo.Add(waypoints[i].position);
-            if (i == 1)
+/*            if (i == 1)
             {
                 _WayToGo.Add(_player.position);
             }
+            else
+            {
+                _WayToGo.Add(waypoints[i].position);
+            }*/
+
+            _WayToGo.Add(WayPoints.Instance.waypoints[i].position);
         }
     }
     
@@ -92,7 +71,7 @@ public class EnemyMovement : MonoBehaviour
 
                 if (_dis > 1f)
                 {
-                    _nav_mesh.SetDestination(_WayToGo[_count]);
+                    nav_mesh.SetDestination(_WayToGo[_count]);
                 }
                 else if (_count == _WayToGo.Count - 1)
                 {

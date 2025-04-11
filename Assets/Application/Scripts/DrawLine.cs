@@ -12,6 +12,7 @@ public class DrawLine : MonoBehaviour, IBeginDragHandler, IDragHandler ,IPointer
     RaycastHit _hit;
     public List<Vector3> _points;
 
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         _player = GameObject.FindWithTag("Player");
@@ -49,7 +50,8 @@ public class DrawLine : MonoBehaviour, IBeginDragHandler, IDragHandler ,IPointer
         _line.positionCount = 0;
         _points.Clear();
         _line.gameObject.SetActive(true);
-        FindObjectOfType<EnemyMovement>().StartTrack();
+        WayPoints.Instance.StartTrack();
+        FindObjectOfType<EnemyMovement>().StartDraw();
     }
 
     public void DisableLine()
